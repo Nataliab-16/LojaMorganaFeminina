@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Marca {
+    id Int  @id @default(autoincrement())
+    nome  String
+    roupas Roupa[]
+  @@map("marcas")
+}
+
+model Roupa {
+  id           Int      @id @default(autoincrement())
+  nome         String   @db.VarChar(60)
+  descricao    String   @db.VarChar(500)
+  tamanho      String   @db.VarChar(100)
+  cor          String   @db.VarChar(20)
+  preco        Float
+  estoque      Int
+  foto         String
+  marca       Marca  @relation(fields: [marcaId], references: [id])
+  marcaId     Int
+  avaliacoes  Avaliacao[]
+  mediaAvaliacao Float  @default(0)
+  somaAvaliacao  Int    @default(0)
+  
+  @@map("roupas")
+}
+
+model Cliente {
+  id           String   @db.VarChar(100) @id @default(uuid())
+  nome         String   @db.VarChar(60)
+  email        String   @db.VarChar(60) @unique
+  senha        String   @db.VarChar(60)
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+  avaliacoes   Avaliacao[]
+
+  @@map("clientes")
+}
+
+
+model Avaliacao {
+  id            Int        @id @default(autoincrement())
+  desc          String     @db.VarChar(200)
+  criadoEm      DateTime   @default(now())
+  nota          Int
+  cliente       Cliente    @relation(fields: [clienteId], references: [id]) 
+  clienteId     String
+  roupa         Roupa      @relation(fields: [roupaId], references: [id])
+  roupaId       Int
+  @@map("avaliacoes")
+
+}
+
+enum Tamanhos {
+  P
+  M
+  G
+  GG
+}

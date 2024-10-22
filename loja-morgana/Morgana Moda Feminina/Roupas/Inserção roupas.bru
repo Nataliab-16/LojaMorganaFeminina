@@ -1,0 +1,23 @@
+meta {
+  name: Inserção roupas
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3004/roupas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nome": "Short de Courino", 
+    "descricao": "Este shorts elegante apresenta um design moderno com bolso faca, proporcionando um visual funcional.",
+    "tamanho": "P, M, G e GG", 
+    "cor": "Preto", 
+    "preco": 129.90, 
+    "estoque": 8, 
+    "foto": "https://acdn.mitiendanube.com/stores/004/138/519/products/img_1618-956b6bcb59773f9a3f17207241141982-1024-1024.webp"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Morgana Moda Feminina",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

@@ -1,6 +1,7 @@
 "use client"
 import {useForm} from "react-hook-form"
 import { useRouter } from "next/navigation"
+import { useClienteStore } from "@/context/clientes"
 
 type Inputs = {
     email: string
@@ -10,6 +11,8 @@ type Inputs = {
 
 export default function Login() {
     const { register, handleSubmit } = useForm<Inputs>()
+    const { logaCliente } = useClienteStore()
+
     const router = useRouter()
 
     async function verificaLogin(data: Inputs){
@@ -23,6 +26,12 @@ export default function Login() {
         
         if (response.status == 200) {
             const dados = await response.json()
+            logaCliente(dados)
+            if (data.manter){
+                localStorage.setItem("client_key", dados.id)
+            } else {
+                if(localStorage.getItem("client_key")){localStorage.removeItem("client_key")}
+            }
             router.push("/")
         } 
     

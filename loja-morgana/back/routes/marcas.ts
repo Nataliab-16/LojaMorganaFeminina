@@ -14,10 +14,10 @@ router.get("/", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  const { nome, email, senha } = req.body
+  const { nome } = req.body
 
-  if (!nome || !email || !senha  ) {
-    res.status(400).json({ "erro": "Informe o nome da data" })
+  if (!nome  ) {
+    res.status(400).json({ "erro": "Informe o nome da marca" })
     return
   }
 
@@ -46,9 +46,9 @@ router.delete("/:id", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params
-  const { nome, email, senha } = req.body
+  const { nome  } = req.body
 
-  if (!nome || !email || !senha ) {
+  if (!nome ) {
     res.status(400).json({ "erro": "Informe o nome da marca" })
     return
   }

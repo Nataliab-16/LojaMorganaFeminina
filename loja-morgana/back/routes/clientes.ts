@@ -125,4 +125,67 @@ router.post("/login", async (req, res) => {
     res.status(400).json(error)
   }
 })
+
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params
+
+
+  try {
+    const cliente = await prisma.cliente.findUnique({
+      where: { id }
+    })
+
+
+
+
+    if (cliente == null) {
+      res.status(400).json({ erro: "Não cadastrado" })
+      return
+    }
+    else {
+      res.status(200).json({
+        id: cliente.id,
+        nome: cliente.nome,
+        email: cliente.email
+      })
+    }
+  } catch (error) {res.status(400).json(error)}})
+
+
+
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params
+
+  try {
+    const cliente = await prisma.cliente.delete({
+      where: { id: String(id) }
+    })
+    res.status(200).json(cliente)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+router.put("/:id", async (req, res) => {
+  const { id } = req.params
+  const { nome, email, senha } = req.body
+
+  if (!nome || !email || !senha ) {
+    res.status(400).json({ erro: "Informe nome, email e senha" })
+    return
+  }
+
+  try {
+    const cliente = await prisma.cliente.update({
+      where: { id: String(id) },
+      data: { nome, email, senha }
+    })
+    res.status(200).json(cliente)
+  } catch (error) {
+    res.status(400).json(error)
+  }
+})
+
+
 export default router

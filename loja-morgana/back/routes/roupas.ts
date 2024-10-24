@@ -6,7 +6,11 @@ const router = Router()
 
 router.get("/", async (req, res) => {
   try {
-    const roupas = await prisma.roupa.findMany()
+    const roupas = await prisma.roupa.findMany({
+      include: {
+        marca: true
+      }
+    })
     res.status(200).json(roupas)
   } catch (error) {
     res.status(400).json(error)
@@ -49,7 +53,7 @@ router.put("/:id", async (req, res) => {
   const { nome, descricao, tamanho, cor, preco, estoque, foto, marcaId} = req.body
 
 
-  if (!nome || !tamanho || !descricao || !cor || !preco || !estoque || !foto ) {
+  if (!nome || !tamanho || !descricao || !cor || !preco || !estoque || !foto || !marcaId ) {
     res.status(400).json({ "erro": "Informe nome, descricao, tamanho, cor, preco, estoque, foto e Id da marca" })
     return
   }

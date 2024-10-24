@@ -4,9 +4,11 @@ import { RoupaI } from "@/utils/types/roupas";
 import { InputPesquisa } from "@/components/InputPesquisa";
 import { Toaster } from "sonner";
 import { Card } from "@/components/Card";
+import { useClienteStore } from "@/context/clientes";
 
 
 export default function Home() {
+  const { logaCliente } = useClienteStore()
   const [roupas, setRoupas] = useState<RoupaI[]>([])
   useEffect(() => {
     async function buscaDados(){
@@ -14,7 +16,22 @@ export default function Home() {
       const dados = await response.json()
       setRoupas(dados)}
       buscaDados()
-  }, [])
+
+      async function buscaCliente(idCliente: string){
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL_API}/clientes/${idCliente}`)
+        if (response.status==200){
+          const dados = await response.json()
+          logaCliente(dados)
+        }}
+  
+  
+      if (localStorage.getItem("client_key")){
+        const idClienteLocal = localStorage.getItem("client_key") as string
+        buscaCliente(idClienteLocal)
+      }
+  
+  }
+  , [])
 
   const listaRoupas = roupas.map( roupa => (
     <Card data={roupa} key={roupa.id}/>

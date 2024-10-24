@@ -7,4 +7,8 @@ export interface RoupaI {
     preco: number;
     foto: string;
     estoque: number;
+    marca: { 
+        id: number;
+        nome: string; // Nome da marca
+    };
 }

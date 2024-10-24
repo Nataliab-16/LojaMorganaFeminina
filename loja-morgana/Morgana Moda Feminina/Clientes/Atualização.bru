@@ -5,7 +5,15 @@ meta {
 }
 
 put {
-  url: http://localhost:3004/clientes
-  body: none
+  url: http://localhost:3004/clientes/108ab3af-cbea-4b73-a7f1-1591c15c177d
+  body: json
   auth: none
+}
+
+body:json {
+  {
+    "nome": "Ana Luize",
+    "email":"analuiza@email.com",
+    "senha":"#Analu123"
+  }
 }

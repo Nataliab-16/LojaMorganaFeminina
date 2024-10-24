@@ -14,6 +14,7 @@ app.use(cors())
 app.use("/roupas", roupasRoutes)
 app.use("/clientes", clientesRoutes)
 app.use("/marcas", marcasRoutes)
+app.use("/avaliacoes", avaliacoesRoutes)
 
 app.get('/', (req, res) => {
   res.send('API: Loja de roupas femininas')

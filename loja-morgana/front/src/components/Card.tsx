@@ -10,7 +10,7 @@ export function Card({data}: {data: RoupaI}) {
          alt={`Imagem da peça ${data.nome}`} />
          </Link>
             <div className="p-5">
-                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-pinkm">{data.nome}</h5>
+                    <h5 className="mb-2 text-2xl font-bold tracking-tight text-pinkm">{data.nome} - {data.marca.nome}</h5>
                 <p className="mb-3 font-normal text-black poppins-bold text-2xl">R${Number(data.preco).toLocaleString("pt-br", {minimumFractionDigits: 2})}</p>
                 <p className=" text-sm mb-3 font-normal text-gray-700 dark:text-gray-400 truncate">{data.descricao}</p>
 
